@@ -1,0 +1,44 @@
+System.setIn(new FileInputStream("src/SDS_day1/P1713/input.txt"));
+
+클래스는 메인 클래스 밖에
+
+BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+String line = bf.readLine();
+StringTokenizer st = new StringTokenizer(line," ");
+
+Arrays.sort(list);
+Collections.sort(list);
+Collections.sort(list, Comparator.reverseOrder());
+
+총 개수를 모르거나 정렬해야할때
+ArrayList는 검색에 특화, LinkedList는 추가/삭제에 특화
+List<Integer> A = new ArrayList<>();
+List<Integer> A = new LinkedList<>();
+Queue<Integer> A = new LinkedList<>();
+PriorityQueue<Integer> A = new PriorityQueue<>();
+Stack<Integer> A = new Stack<>();
+
+배열로 선언할 때, 다시 for문을 돌려서 각각의 원소를 ArrayList로 초기화해야한다.
+배열 선언 후 필요할 때 배열 내 값을 list에 넣기
+ArrayList<Integer>[] adj = new ArrayList[N];
+
+int로 했는데 안되면 long
+int - 2123456789
+long - 9123456789123456789
+
+top부터 하나하나 꺼내는 상황엔 PriorityQueue
+PriorityQueue<jewel> pq = new PriorityQueue<>(Comparator.comparingInt(jewel::getValue).reversed());
+
+내부합을 구할 땐 원래 누적합 배열을 쓰는데
+배열의 순서가 바뀔 떈 인덱스 트리를 활용한다.
+
+&, | 비트연산자
+1 << i , i >> 1 비트연산자 
+
+log2(N) = log(N)/log(2)
+depthbase는 0, k는 log2(N)+1 --> log(N)/log(2)
+
+System.out.println보다는
+StringBuilder sb = new StringBuilder();
+sb.append("~~"+"\n");
+System.out.println(sb);

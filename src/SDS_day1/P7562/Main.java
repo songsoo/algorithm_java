@@ -9,8 +9,8 @@ public class Main {
     static int C,i;
     static int[] start,end;
     static int[] moveX = {1,2,2,1,-1,-2,-2,-1};
-    static int[] moveY = {2,1,1,2,-2,-1,-1,-2};
-    static boolean visited[][];
+    static int[] moveY = {2,1,-1,-2,-2,-1,1,2};
+    static boolean visited[][], found;
 
     static LinkedList<int[]> queue;
 
@@ -22,7 +22,7 @@ public class Main {
 
         for (int j = 0; j < C; j++) {
 
-            start = new int[2];
+            start = new int[3];
             end = new int[2];
 
             st = new StringTokenizer(bf.readLine());
@@ -31,48 +31,53 @@ public class Main {
             st = new StringTokenizer(bf.readLine());
             start[0] = Integer.parseInt(st.nextToken());
             start[1] = Integer.parseInt(st.nextToken());
+            start[2] = 0;
 
             st = new StringTokenizer(bf.readLine());
             end[0] = Integer.parseInt(st.nextToken());
             end[1] = Integer.parseInt(st.nextToken());
 
-            System.out.println(C + " " + i + " " + start[0]+" "+start[1] + " " + end[0]+" " + end[1]);
-
             visited = new boolean[i][];
             queue = new LinkedList<int[]>();
+            found = false;
+
             for(int k=0;k<i;k++){
                 visited[k] = new boolean[i];
             }
 
 
             queue.add(start);
-
-            while(!queue.isEmpty()){
+            int result=Integer.MAX_VALUE;
+            int count = 0;
+            while(!queue.isEmpty() && !found){
                 int[] a = queue.poll();
-                bfs(a[0],a[1],0);
+                result = Math.min(result,bfs(a[0],a[1],a[2]));
             }
+            System.out.println(result);
+
 
         }
 
     }
 
 
-    public static void bfs(int x, int y,int result){
-        if(!visited[x][y]){
-            visited[x][y] = true;
-            if(x==end[0] && y == end[1]){
-                System.out.println(result);
-                return;
-            }
+    public static int bfs(int x, int y, int result) {
 
-            for(int j=0;j<8;j++){
+        if (!visited[x][y] && !found) {
+            visited[x][y] = true;
+            if (x == end[0] && y == end[1]) {
+                return result;
+            }
+            result++;
+            for (int j = 0; j < 8; j++) {
                 int nextX = x + moveX[j];
                 int nextY = y + moveY[j];
-                if(nextX>=0 && nextX<i && nextY>=0 && nextY<i){
-                    int[] next = {nextX,nextY,++result};
+                if (nextX >= 0 && nextX < i && nextY >= 0 && nextY < i) {
+                    int[] next = {nextX, nextY, result};
                     queue.add(next);
                 }
             }
         }
+        return Integer.MAX_VALUE;
     }
 }
