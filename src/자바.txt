@@ -42,3 +42,5 @@ System.out.println보다는
 StringBuilder sb = new StringBuilder();
 sb.append("~~"+"\n");
 System.out.println(sb);
+
+table에서 대각선에 있는 정점은 열-열, 행-행의 절대값은 같다 (3,3) (4,2) => 1, 1

@@ -1,4 +1,4 @@
-package SDS_day1.P1103;
+package SDS_day1.P1103N;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
