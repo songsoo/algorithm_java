@@ -13,12 +13,16 @@ public class Test {
 
     public static void main(String[] args) throws NumberFormatException, IOException {
 
-        int a = 13;
-
-        for(int i=0;i<5;i++){
-            System.out.println(a&1<<i);
+        ArrayList<ArrayList<Integer>> a = new ArrayList<>();
+        for (int i = 0; i < 2; i++) {
+            ArrayList<Integer> tmp = new ArrayList<>();
+            tmp.add(i);
+            a.add(tmp);
         }
-
+        for (ArrayList<Integer> b : a){
+            System.out.println(a.indexOf(b));
+        }
+        System.out.println(a.toString());
     }
 
 }
