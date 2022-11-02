@@ -10,7 +10,7 @@ import java.util.StringTokenizer;
 public class Main2 {
     static long T, result;
     static int arrayNum1,arrayNum2;
-    static long[][] array1,array2;
+    static long[] array1,array2;
     static ArrayList<Long> arrayList1, arrayList2;
 
     public static void main(String[] args) throws Exception{
@@ -23,78 +23,80 @@ public class Main2 {
         st = new StringTokenizer(bf.readLine());
         arrayNum1 = Integer.parseInt(st.nextToken());
         st = new StringTokenizer(bf.readLine());
-        array1 = new long[arrayNum1][];
+        array1 = new long[arrayNum1];
         arrayList1 = new ArrayList<>();
         for (int i = 0; i < arrayNum1; i++) {
-            array1[i] = new long[arrayNum1];
-            array1[i][i] = Integer.parseInt(st.nextToken());
-            arrayList1.add(array1[i][i]);
+            array1[i] = Integer.parseInt(st.nextToken());
+            arrayList1.add(array1[i]);
         }
 
-        for (int i = 0; i < arrayNum1; i++) {
-            for (int j = 0; j < arrayNum1-i-1; j++) {
-                array1[j][i+j+1] = array1[j+1][i+j+1] + array1[j][i+j] -array1[j+1][i+j];
-                arrayList1.add(array1[j][i+j+1]);
+        for (int i = 0; i < array1.length; i++) {
+            int sum=0;
+            for(int j = i+1 ; j < array1.length; j++){
+                sum+=array1[j];
+                arrayList1.add(array1[i]+sum);
             }
         }
+
+
 
         st = new StringTokenizer(bf.readLine());
         arrayNum2 = Integer.parseInt(st.nextToken());
         st = new StringTokenizer(bf.readLine());
-        array2 = new long[arrayNum2][];
+        array2 = new long[arrayNum2];
         arrayList2 = new ArrayList<>();
         for (int i = 0; i < arrayNum2; i++) {
-            array2[i] = new long[arrayNum2];
-            array2[i][i] = Integer.parseInt(st.nextToken());
-            arrayList2.add(array2[i][i]);
+            array2[i] = Integer.parseInt(st.nextToken());
+            arrayList2.add(array2[i]);
         }
 
-        for (int i = 0; i < arrayNum2; i++) {
-            for (int j = 0; j < arrayNum2-i-1; j++) {
-                array2[j][i+j+1] = array2[j+1][i+j+1] + array2[j][i+j]-array2[j+1][i+j];
-                arrayList2.add(array2[j][i+j+1]);
+        for (int i = 0; i < array2.length; i++) {
+            int sum=0;
+            for(int j = i+1 ; j < array2.length; j++){
+                sum+=array2[j];
+                arrayList2.add(array2[i]+sum);
             }
         }
+
 
         Collections.sort(arrayList1);
-        Collections.sort(arrayList2);
+        Collections.sort(arrayList2,Collections.reverseOrder());
+        int pta=0, ptb=0;
+        while(true){
+            long curA = arrayList1.get(pta);
+            long curB = arrayList2.get(ptb);
 
-        /*
-        for (int i = 0; i < arrayNum1; i++) {
-            for (int j = 0; j < arrayNum1; j++) {
-                System.out.print(array1[i][j]+" ");
+            if(curA + curB == T){
+                long countA = 0;
+                long countB = 0;
+                int index=pta;
+
+                while(index<arrayList1.size() && arrayList1.get(index++)==curA){
+                    countA++;
+                }
+                index = ptb;
+                while(index<arrayList2.size() && arrayList2.get(index++)==curB){
+                    countB++;
+                }
+                result += countA*countB;
+                pta+=countA;
+                ptb+=countB;
+
+            }else if(curA + curB > T){
+                ptb++;
+            }else{
+                pta++;
             }
-            System.out.println();
 
-        }
-        */
-        //System.out.println(arrayList1.toString());
-        //System.out.println(arrayList2.toString());
+            if(pta == arrayList1.size() || ptb == arrayList2.size()){
+                break;
+            }
 
-
-        // arrayList1를 for문으로 돌려서 이분탐색하여 찾아냄
-        for (int i = 0; i < arrayList1.size(); i++) {
-            result+= BS(0,arrayList2.size()-1,T-arrayList1.get(i));
         }
 
         System.out.println(result);
 
     }
 
-    public static long BS(int left, int right, long value){
-        if(left>right){
-            return 0;
-        }
-
-        int mid = (left+right)/2;
-        if(arrayList2.get(mid)>value){
-            return BS(left,mid-1,value);
-        }else if(arrayList2.get(mid)<value){
-            return BS(mid+1,right,value);
-        }else{
-            return BS(left,mid-1,value) + BS(mid+1,right,value) + 1;
-        }
-
-    }
 
 }
