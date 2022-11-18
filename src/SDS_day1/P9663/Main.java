@@ -33,17 +33,13 @@ public class Main {
         if(depth == N){
             count++;
         }
-        //체크인
         else {
             for (int i = 0; i < N; i++) {
-                //checkIn(i,depth);
                 if (isPossible(i,depth)) {
                     arr[depth] = i;
                     goNext(depth+1);
                 }
-                //checkOut(i,depth);
             }
-            //체크아웃
         }
     }
     public static boolean isPossible(int x,int depth){
