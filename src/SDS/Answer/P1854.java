@@ -28,7 +28,7 @@ public class P1854 {
         dijkstra();
         StringBuilder sb = new StringBuilder();
         for (int i = 1; i <= N; i++) {
-            sb.append(dist[i].size() == K ? dist[i].get(K-1) : -1).append("\n");
+            //sb.append(dist[i].size() == K ? dist[i].get(K-1) : -1).append("\n");
         }
         System.out.println(sb.toString());
     }

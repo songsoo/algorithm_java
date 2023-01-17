@@ -9,6 +9,7 @@ StringTokenizer st = new StringTokenizer(line," ");
 Arrays.sort(list);
 Collections.sort(list);
 Collections.sort(list, Comparator.reverseOrder());
+Arrays.fill(list,~~);
 
 총 개수를 모르거나 정렬해야할때
 ArrayList는 검색에 특화, LinkedList는 추가/삭제에 특화
