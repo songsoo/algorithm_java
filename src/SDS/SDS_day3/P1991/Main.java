@@ -34,6 +34,10 @@ public class Main {
         }
 
         preOrder(tree[0]);
+        System.out.println();
+        inOrder(tree[0]);
+        System.out.println();
+        postOrder(tree[0]);
 
     }
 
@@ -46,6 +50,26 @@ public class Main {
         if(node.right!=null){
             preOrder(node.right);
         }
+    }
+
+    public static void inOrder(Node node){
+        if(node.left!=null){
+            inOrder(node.left);
+        }
+        System.out.print(node.chr);
+        if(node.right!=null){
+            inOrder(node.right);
+        }
+    }
+
+    public static void postOrder(Node node){
+        if(node.left!=null){
+            postOrder(node.left);
+        }
+        if(node.right!=null){
+            postOrder(node.right);
+        }
+        System.out.print(node.chr);
     }
 
 }
@@ -63,7 +87,7 @@ class Node{
         this.left = newLeft;
     }
     public void setRight(Node newRight){
-        this.left = newRight;
+        this.right = newRight;
     }
 
 }
