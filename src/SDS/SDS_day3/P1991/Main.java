@@ -11,7 +11,7 @@ public class Main {
     static int N;
     static Node[] tree;
     public static void main(String[] args) throws Exception{
-        System.setIn(new FileInputStream("src/SDS/SDS_day3/P1991/input.txt"));
+        System.setIn(new FileInputStream("src/SDS.SDS_day3/P1991/input.txt"));
         BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(bf.readLine());
 
@@ -63,7 +63,7 @@ class Node{
         this.left = newLeft;
     }
     public void setRight(Node newRight){
-        this.left = newRight;
+        this.right = newRight;
     }
 
 }
