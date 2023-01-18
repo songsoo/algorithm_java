@@ -51,9 +51,13 @@ long - 9123456789123456789
 
 
 top부터 하나하나 꺼내는 상황엔 PriorityQueue
-PriorityQueue<jewel> pq = new PriorityQueue<>(Comparator.comparingInt(jewel::getValue).reversed());
+PriorityQueue<jewel> pq = new PriorityQueue<>();
+
+Comparator.comparingInt(jewel::getValue)
+Comparator.comparingInt(jewel::getValue).reversed() -> Arrays.sort나 PriorityQueue에서 사용할 수 있다.
 
 내부합을 구할 땐 원래 누적합 배열을 쓰는데
+(1차 배열 2개일 때 2차 배열을 선언하여 [i-1][j-1]이 i~j까지의 합을 나타냄을 표시) https://yiyj1030.tistory.com/489
 배열의 순서가 바뀔 떈 인덱스 트리를 활용한다.
 
 &, | 비트연산자
