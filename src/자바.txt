@@ -34,7 +34,7 @@ Set은 중복이 안되고 List는 중복이 된다
 Set은 순서를 저장하지 않고 List는 순서를 저장한다.
 
 Queue method들
-예외 발생  | false 리턴
+예외 발생 | false 리턴
    add   |   offer
   remove |   poll
  element |   peek
