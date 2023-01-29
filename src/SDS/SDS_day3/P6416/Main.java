@@ -42,9 +42,10 @@ public class Main {
                 } else {
                     // 트리에 추가
                     Node newNode = new Node(par);
+                    /*
                     if(){
 
-                    }
+                    }*/
                 }
 
 
