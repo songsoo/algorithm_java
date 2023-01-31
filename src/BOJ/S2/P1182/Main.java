@@ -23,7 +23,7 @@ public class Main {
 
         arr = new int[N];
         visited = new boolean[N];
-
+        
         st = new StringTokenizer(bf.readLine());
 
         for (int i = 0; i < N; i++) {
