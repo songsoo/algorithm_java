@@ -6,98 +6,57 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class Main {
-    // 문제를 봤을 때 처음엔 모든 사탕을 다 움직일 수 있고 그 상태에서 최대 길이를 구하라는 줄 알고 난감했다
-    // 사실 대부분의 경우 그렇게 하면 가장 많은 색깔을 선택하면 될 것 같기도 하다
-    // 이 문제는 모든 사탕을 돌면서 상하좌우로 움직이는 좌표 이동 문제라고 생각된다.
-    // 1. 각 사탕을 모두 상하좌우로 이동하고 해당 위치의 자신의 길이만 확인하면 될 것으로 판단된다
-
-    // 처음엔 해당하는 라인의 같은 문자 개수를 다 구했는데
-    // 연속적으로 이어지지 않는 경우도 catch를 한다거나 현재 위치가 아닌 다른 위치의 최대 길이를 구하는 경우가 생겨서 제외함
-    static int N, max;
-    static char[][] board;
-    static int[] moveX = {1,-1,0,0}, moveY = {0,0,1,-1};
+    static int M,N;
+    static int[][] board;
     public static void main(String[] args) throws Exception{
 
-        System.setIn(new FileInputStream("E:\\SSAFY9\\intelliJ_workspace\\algorithm_java\\src\\BOJ\\S4\\P1018\\input.txt"));
+        System.setIn(new FileInputStream("D:\\IntelliJ\\algorithm_java\\src\\BOJ\\S4\\P1018\\input.txt"));
 
-
-        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+        BufferedReader bf =new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(bf.readLine());
 
+        M = Integer.parseInt(st.nextToken());
         N = Integer.parseInt(st.nextToken());
-        max = 0;
-        board = new char[N][N];
-        for (int i = 0; i < N; i++) {
-            board[i] = bf.readLine().toCharArray();
+
+        board = new int[M][N];
+
+        for (int i = 0; i < M; i++) {
+            String line = bf.readLine();
+            for (int j = 0; j < N; j++) {
+                board[i][j] = line.charAt(j);
+            }
         }
 
-        checkBoard(0,0);
+        // 딱 보자마자 들은 생각은 모든 8*8을 돌면서
+        // 행렬로 봤을 때 행과 열의 합이 짝인 것들과 홀인 것들이 모두 같은 색상이어야 하기 때문에
+        // 임의로 홀수를 B, 짝수를 W로 하여 잘못된 개수를 구하여 Math.abs(최대 - 잘못된 개수);를 한다.
+        // WBWB로 정렬되었다면 모두가 잘못되었다고 나오고 여기서 잘못된 녀석이 있으면 전부 잘못된 것에서 하나만 제대로 되었다고 나올 것이다
 
-        System.out.println(max);
-
+        int min = 32;
+        for (int i = 0; i < M-8+1; i++) {
+            for (int j = 0; j < N-8+1; j++) {
+                min = Math.min(min,checkWrongSmallBoard(i,j));
+            }
+        }
+        System.out.println(min);
     }
 
-    public static void checkBoard(int x, int y){
-        for (int i = 0; i < N; i++) {
-            for (int j = 0; j < N; j++) {
-                for (int k = 0; k < 4; k++) {
-                    int nextX = i+moveX[k];
-                    int nextY = j+moveY[k];
-                    if(nextX>=0 && nextX<N && nextY>=0 && nextY<N){
-                        max = Math.max(max, locMax(nextX,nextY));
-                    }
+    public static int checkWrongSmallBoard(int x, int y){
+        int cnt = 0;
+        for (int i = x; i < x+8; i++) {
+            for (int j = y; j < y+8; j++) {
+                // 짝수는 B가 맞고 홀수는 W가 맞는거로 한다.
+                if((i+j)%2==0){
+                    cnt = board[i][j]=='B' ? cnt : cnt+1;
+                }else{
+                    cnt = board[i][j]=='W' ? cnt : cnt+1;
                 }
             }
         }
-    }
-
-    public static int locMax(int x, int y){
-        // x,y 위치가 2번 들어가니까 cntX를 -1로 초기화
-        int cntX = 0;
-        int cntY = 0;
-        for (int i = y; i < N; i++) {
-            if(i==y){
-                cntY++;
-                continue;
-            }
-            if(!(board[x][y]==board[x][i])){
-                break;
-            }
-            cntY++;
-
-        }
-        for (int i = y; i >=0; i--) {
-            if(i==y){
-                cntY++;
-                continue;
-            }
-            if(!(board[x][y]==board[x][i])){
-                break;
-            }
-            cntY++;
-        }
-        for (int i = x; i < N; i++) {
-            if(i==x){
-                cntX++;
-                continue;
-            }
-            if(!(board[x][y]==board[i][y])){
-                break;
-            }
-            cntX++;
-
-        }
-        for (int i = x; i >=0; i--) {
-            if(i==x){
-                cntX++;
-                continue;
-            }
-            if(!(board[x][y]==board[i][y])){
-                break;
-            }
-            cntX++;
-        }
-        return Math.max(cntX,cntY);
+        // 잘못 된게 0개이거나 32개일 때 최소
+        // 잘못된 녀석들밖에 없을 때 (32개 이상) 제대로 된 녀석이 하나라면 잘못된 녀석은 63개로 나온다
+        // 근데 제대로 된 녀석을 잘못된 녀석으로 바꾸면 사실상 맞는 체스판이니까 64 - 63 = 1
+        return cnt>=32? 64-cnt:cnt;
     }
 
 }
