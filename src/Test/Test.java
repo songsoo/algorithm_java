@@ -9,34 +9,29 @@ import java.util.*;
 
 public class Test {
 
-    static int n=5;
-    static boolean[][] arr;
-    static int[] arr2;
+    static int count = 0;
     public static void main(String[] args) {
-
-        arr = new boolean[n][n];
-        arr2 = new int[3];
-        dfs(0);
-    }
-
-    static void dfs(int wallCnt){
-        if(wallCnt == 3){
-            for (int i = 0; i < wallCnt; i++) {
-                System.out.print(arr2[i]+" ");
+        int[][] a = {{1,2},{3,4}};
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < 2; j++) {
+                System.out.print(a[i][j]+" ");
             }
             System.out.println();
-            return;
         }
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                if(!arr[i][j]){
-                    arr[i][j] = true;
-                    arr2[wallCnt] = i*10+j;
-                    dfs(wallCnt+1);
-                    arr[i][j] = false;
-                }
+
+        go(a);
+
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < 2; j++) {
+                System.out.print(a[i][j]+" ");
             }
+            System.out.println();
         }
     }
+
+    public static void go(int[][] b){
+        b[0][0] = 0;
+    }
+
 
 }
