@@ -1,10 +1,5 @@
 package Programmers.탐욕법.level2.조이스틱;
 
-import SDS.SDS_day2.P2842N.answer;
-
-import java.util.ArrayList;
-import java.util.LinkedList;
-
 public class Main {
     static int answer = 0;
 

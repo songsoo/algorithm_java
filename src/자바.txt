@@ -1,4 +1,4 @@
-System.setIn(new FileInputStream("src/SDS.SDS_day1/P1713/input.txt"));
+System.setIn(new FileInputStream("src/Study.SDS_day1/P1713/input.txt"));
 
 클래스는 메인 클래스 밖에
 
