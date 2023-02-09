@@ -14,7 +14,7 @@ public class Solution {
     static boolean[] comb;
     static ArrayList<Integer> taste1, taste2;
     public static void main(String[] args) throws Exception{
-        System.setIn(new FileInputStream("E:\\SSAFY9\\intelliJ_workspace\\algorithm_java\\src\\SWEA\\D4\\P4012\\input.txt"));
+        System.setIn(new FileInputStream("D:\\IntelliJ\\algorithm_java\\src\\SWEA\\D4\\P4012\\input.txt"));
         BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
         StringBuilder sb = new StringBuilder();
         T = Integer.parseInt(bf.readLine());
@@ -41,6 +41,7 @@ public class Solution {
         //조합에 맞게 각각 식재료들에 따라 시너지를 구하고
         //시너지끼리 비교하고 최소값을 찾아낸다.
         if(index==N/2){
+            System.out.println(Arrays.toString(comb));
             getTaste();
         }else{
             for (int i = prev; i < N; i++) {
@@ -59,12 +60,17 @@ public class Solution {
         for (int i = 0; i < N; i++) {
             for (int j = i+1; j < N; j++) {
                 if(comb[i]&&comb[j]){
+                    //System.out.println(i+" "+j);
                     sum1+=(arr[i][j]+arr[j][i]);
+                    System.out.println(i+" "+j+" " +(arr[i][j]+arr[j][i]));
                 }else if(!comb[i]&&!comb[j]){
                     sum2+=(arr[i][j]+arr[j][i]);
+                    System.out.println(i+" "+j+" " +(arr[i][j]+arr[j][i]));
                 }
             }
         }
+        //System.out.println(Arrays.toString(comb));
+        //System.out.println(Math.abs(sum1-sum2));
         min = Math.min(min,Math.abs(sum1-sum2));
     }
 }
