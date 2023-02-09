@@ -3,7 +3,7 @@ package Programmers.탐욕법.level2.조이스틱;
 public class Solution {
 
     public static void main(String[] args) {
-        System.out.print(solution("ABAABAAB"));
+        System.out.print(solution("AABAABBBB"));
     }
 
     static char[] nameArr;
@@ -18,10 +18,7 @@ public class Solution {
             return 0;
         }
         //answer = answer + Math.min(countMove(nameArr),countMoveR(nameArr));
-        //System.out.println(countMove(nameArr)+" "+countMoveR(nameArr));
-        //System.out.println(moveRight(false,2));
-        //System.out.println(moveRight(true,2));
-        System.out.println(moveBack(false,4,1));
+        System.out.println(countMove());
         return answer;
     }
 
@@ -34,108 +31,71 @@ public class Solution {
         return result;
     }
 
-    public static int countMove(char[] nameArr){
-        int min = Integer.MAX_VALUE;
-        int count =1;
-        // 정방향으로 움직이다가 A무리를 만나면 건너갈지 뒤돌아갈지 선택
+    //시작부터 오른쪽으로 이동했을 경우
+    public static int countMove(){
+        //오른쪽으로 한 칸씩 이동하면서 num count, 마지막으로 A의 행렬이 나타나지 않을 때 까지 증가시킨다.
+        //이 때 다음 칸이 A라면 뒤로 돌아가는 것을 카운트한다.
+        int count = 0; //앞으로 이동한 회수
+        int minBack = Integer.MAX_VALUE; //현재까지 앞으로 온 길이 + 뒤로 돌아간 값 중 가장 짧은 것
+        int curACount = 0; //가장 최근에 만난 A가 연달아 나온 회수
         for (int i = 0; i < nameArr.length-1; i++) {
-            if( nameArr[i+1]=='A' ){
-                //현재 위치 다음부터 시작해서
-                int j=i+1;
-                //A가 몇개가 나오는지 확인
+            //자신의 다음이 A인지 확인하고 A인 것이 확인되면 다음 문자를 확인한다.
+            //이 때 다음 문자가 있을 수도 있고 없을 수도 있다.
+            //다음 문자까지의 숫자를 count하고
+                //있다면
+                    // 1. moveBack을 반대방향으로 다음 문자까지 진행하고 현재 count와 비교하여 minBack에 업데이트한다
+                    // 2. i를 다음 숫자까지 이동하고 count를 증가시킨다.
+                //없다면
+                    //index는 nameArr.length를 가리킬 것이다.
+                    //ACount만큼 추가이동을 시키지 않도록 설정하며, 다음 count++를 제외시킨다(이동을 안하는 것이기 때문에)
+            //자신의 다음이 A가 아니라면 aCount를 0으로 초기화
+            //count 증가
+            if(nameArr[i+1]=='A'){
+                int j = i + 1;
+                //A밖에 없다면 j는 length까지, 그 외의 것이 있다면 해당 지점까지
                 while(j<nameArr.length && nameArr[j]=='A'){
+                    curACount++;
                     j++;
                 }
-                //끝까지 A가 안나오고 끝났으면 j = i
                 if(j==nameArr.length){
-                    j = i;
+                    System.out.println("jmm");
                 }
-                //A나온 개수만큼 count 증가
-                count+=j-i;
-
-                int tmpMin = Math.min(moveRight(false,j),moveBack(false,j,i));
-                min = Math.min(min, tmpMin);
-
-                i=j;
-            }
-            else{
-                count++;
-            }
-        }
-        return count;
-    }
-
-    public static int countMoveR(char[] nameArr){
-        int min = Integer.MAX_VALUE;
-        int count =1;
-        // 정방향으로 움직이다가 A무리를 만나면 건너갈지 뒤돌아갈지 선택
-        for (int i = nameArr.length-1; i >= 1; i--) {
-            if( nameArr[i-1]=='A' ){
-                int j=i-1;
-                while(j>=1 && nameArr[j]=='A'){
-                    j--;
+                else if(j!=nameArr.length){
+                    count+=curACount;
                 }
-                if(j==0){
-                    j = i;
-                }
-                count+=i-j;
-
-                int tmpMin = Math.min(moveRight(true,j),moveBack(true,j,i));
-                tmpMin += count;
-                min = Math.min(min, tmpMin);
                 i = j;
-            }else {
-                count++;
+            }else if(nameArr[i+1]!='A'){
+                System.out.println("right"+i+1);
+                curACount = 0;
             }
+            count++;
         }
+        System.out.println(count);
+        //앞으로 쭉 간 길이
         return count;
     }
 
-    public static int moveRight(boolean isReverse,int index){
+    // j : 그 다음으로 만날 A가 아닌 값의 위치
+    // i : 현재 위치
+    // i에서 뒤로 돌아가서 j를 만날 때 까지 count
+    // j가
+    public static int moveBack(int i, int j){
         int count = 0;
-        int tmp = 0;
-        if(isReverse){
-            for (int i = index-1; i >=0; i--) {
-                count++;
-                if(nameArr[i]=='A'){
-                    tmp++;
-                }else{
-                    tmp=0;
-                }
+        int curACount = 0;
+        while(i!=j){
+            i--;
+            count++;
+            if(i==-1){
+                i = nameArr.length-1;
             }
-        }else{
-            for (int i = index+1; i < nameArr.length; i++) {
-                count++;
-                if(nameArr[i]=='A'){
-                    tmp++;
-                }else{
-                    tmp=0;
-                }
+            if(nameArr[i]=='A'){
+                curACount++;
+            }else if(nameArr[i]!='A'){
+                curACount=0;
             }
         }
-        return count-tmp;
+        return count - curACount;
     }
-
-    public static int moveBack(boolean isReverse, int index,int cur){
-        int count=0;
-        if(isReverse){
-            if(index==0){
-                return 0;
-            }
-        }
-        else {
-
-            System.out.println(index);
-            if(index==nameArr.length){
-                return 0;
-            }
-            else{
-                return nameArr.length-index+cur;
-            }
-        }
-        return 1;
-    }
-
 
 
 }

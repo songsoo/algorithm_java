@@ -8,6 +8,7 @@ import java.util.StringTokenizer;
 public class Solution {
     static int[][] arr;
     static boolean[][] visited;
+    static int countingstar = 0;
     static int[] moveX={1,0,-1,0}, moveY={0,1,0,-1};
     public static void main(String[] args) throws Exception{
         System.setIn(new FileInputStream("src/SWEA/D2/P1226/input.txt"));
