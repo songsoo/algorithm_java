@@ -13,6 +13,7 @@ public class Solution {
 
         int answer = 0;
 
+        // 시작 지점과 끝 지점을 routeArr에 저장하고 끝나는 지점을 기준으로 오름차순 정렬
         ArrayList<route> routeArr = new ArrayList<>();
 
         for (int i = 0; i < routes.length; i++) {
@@ -20,6 +21,8 @@ public class Solution {
         }
         Collections.sort(routeArr);
 
+        // 하나 꺼낸 녀석의 끝지점이 루트 중간에 포함되어있는 놈들 모두 제거
+        // (꺼낸 끝 지점에 카메라를 놓는다고 가정하는 것)
         while(!routeArr.isEmpty()){
             int end = routeArr.get(0).end;
             for (int i = routeArr.size()-1; i >=1 ; i--) {

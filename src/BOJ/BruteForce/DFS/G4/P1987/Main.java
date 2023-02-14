@@ -43,10 +43,7 @@ public class Main {
                 visited[arr[newX][newY]-'A']=true;
                 dfs(newX,newY,cnt+1);
                 visited[arr[newX][newY]-'A']=false;
-
             }
-
         }
-
     }
 }
