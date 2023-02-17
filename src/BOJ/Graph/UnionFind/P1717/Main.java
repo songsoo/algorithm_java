@@ -17,22 +17,27 @@ public class Main {
         N = Integer.parseInt(st.nextToken());
         M = Integer.parseInt(st.nextToken());
 
-        parent  = new int[N];
+        parent  = new int[N+1];
 
-        for (int i = 0; i < N; i++) {
+        for (int i = 0; i < N+1; i++) {
             parent[i] = i;
         }
-
+        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < M; i++) {
             st = new StringTokenizer(bf.readLine());
 
+            int op = Integer.parseInt(st.nextToken());
             int a1 = Integer.parseInt(st.nextToken());
             int a2 = Integer.parseInt(st.nextToken());
-            int value = Integer.parseInt(st.nextToken());
 
-
+            if(op==1){
+                sb.append(find(a1)==find(a2)?"YES\n":"NO\n");
+            }else{
+                union(a1,a2);
+            }
 
         }
+        System.out.println(sb.toString());
 
     }
 
