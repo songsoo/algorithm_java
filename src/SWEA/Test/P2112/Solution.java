@@ -1,6 +1,8 @@
-package Test;
+package SWEA.Test.P2112;
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
 /*
@@ -15,7 +17,7 @@ class Solution
     static char visited[];
     public static void main(String args[]) throws Exception
     {
-
+        System.setIn(new FileInputStream("E:\\SSAFY9\\intelliJ_workspace\\algorithm_java\\src\\Test\\Input.txt"));
         BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
         int T;
         T=Integer.parseInt(bf.readLine());
@@ -46,6 +48,7 @@ class Solution
 
         if(cnt==K || cur==D){
             if(isChecked()){
+                System.out.println(Arrays.toString(visited));
                 min =Math.min(min,cnt);
             }
             return;
