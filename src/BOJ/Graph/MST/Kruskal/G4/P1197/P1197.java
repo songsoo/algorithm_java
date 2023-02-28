@@ -1,4 +1,4 @@
-package BOJ.Graph.MST.Kruskal.G4;
+package BOJ.Graph.MST.Kruskal.G4.P1197;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -15,7 +15,6 @@ public class P1197 {
         System.setIn(new FileInputStream("E:\\SSAFY9\\intelliJ_workspace\\algorithm_java\\src\\BOJ\\Graph\\MST\\PRIM\\G4\\input.txt"));
         BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(bf.readLine());
-
 
         int N = Integer.parseInt(st.nextToken())+1;
         int M = Integer.parseInt(st.nextToken());

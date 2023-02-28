@@ -1,13 +1,12 @@
 package BOJ.Graph.MST.Kruskal.G1.P17472;
 
+
 import java.io.BufferedReader;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStreamReader;
-import java.nio.Buffer;
 import java.util.*;
 
-public class Main {
+public class Main2 {
     static int N, M, index;
     static int[][] arr,graph;
     static int[] moveX = {-1,0,1,0}, moveY = {0,-1,0,1},parent;
@@ -88,24 +87,25 @@ public class Main {
                 }
             }
         }
-
-        PriorityQueue<edge> pq = new PriorityQueue<>();
+        ArrayList<edge2>[] edges = new ArrayList[index];
+        for (int i = 0; i < index; i++) {
+            edges[i] = new ArrayList<>();
+        }
+        PriorityQueue<edge2> pq = new PriorityQueue<>();
         for (int i = 0; i < index; i++) {
             for (int j = 0; j < index; j++) {
                 if(graph[i][j]!=10000){
-                    pq.add(new edge(i,j,graph[i][j]));
+                    edges[i].add(new edge2(j,graph[i][j]));
                 }
             }
         }
+
+
         int count = 0;
         int result = 0;
         while(!pq.isEmpty() && count<index-3){
-            edge cur = pq.poll();
-            if(find(cur.from)!=find(cur.to)){
-                union(cur.from, cur.to);
-                count++;
-                result += cur.value;
-            }
+            edge2 cur = pq.poll();
+
         }
 
         System.out.println(count==index-3?result:-1);
@@ -149,17 +149,16 @@ public class Main {
         }return false;
     }
 }
-class edge implements Comparable<edge>{
-    int from;
+class edge2 implements Comparable<edge2>{
+
     int to;
     int value;
-    edge(int x, int y, int value){
-        this.from = Math.max(x,y);
-        this.to = Math.min(x,y);
+    edge2(int y, int value){
+        this.to = y;
         this.value = value;
     }
     @Override
-    public int compareTo(edge o) {
+    public int compareTo(edge2 o) {
         return Integer.compare(this.value, o.value);
     }
 }
