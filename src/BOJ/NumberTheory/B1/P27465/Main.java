@@ -1,4 +1,4 @@
-package BOJ.numberTheory.B1.P27465;
+package BOJ.NumberTheory.B1.P27465;
 
 import java.util.Scanner;
 
