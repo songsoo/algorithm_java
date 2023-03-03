@@ -100,15 +100,6 @@ public class Main {
         cur.x = x;
         cur.y = y;
     }
-    public static void printArr(){
-        for (int i = 0; i < R; i++) {
-            for (int j = 0; j < C; j++) {
-                System.out.print(arr[i][j]+" ");
-            }
-            System.out.println();
-        }
-        System.out.println();
-    }
     public static int switchSharkDirection(int i){
         switch (i){
             case 1:
@@ -133,9 +124,6 @@ public class Main {
             }
         }
         return size;
-    }
-    public static void deleteShark(){
-
     }
 }
 class shark{
