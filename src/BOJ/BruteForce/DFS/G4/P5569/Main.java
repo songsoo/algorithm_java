@@ -19,7 +19,7 @@ public class Main {
         count = new int[N][M][2];
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < M; j++) {
-                Arrays.fill(count[i][j], -1);
+                Arrays.fill(count[i][j], 0);
             }
         }
         count[0][0][0] = 0;
@@ -28,7 +28,7 @@ public class Main {
         count[N-1][M-1][1] = 1;
         dfs(0,0,false,-1);
         printArr();
-        System.out.println((count[0][0][0]+count[0][0][1])%10000);
+        System.out.println((count[0][0][0]+count[0][0][1]));
     }
 
     public static int dfs(int x, int y, boolean curve, int dir){
@@ -38,8 +38,6 @@ public class Main {
             return 1;
         }
         int cnt=0;
-        count[x][y][0] = 0;
-        count[x][y][1] = 0;
         for (int i = 0; i < 2; i++) {
             // 2번 회전 방지하여 진입
             if(!(curve && dir!=i)){
@@ -49,7 +47,7 @@ public class Main {
 
                 if(check(nextX, nextY)){
                     //이미 가본 곳이면 정답 베끼고
-                    if(count[nextX][nextY][0] != -1 && count[nextX][nextY][1] != -1 ){
+                    if(count[nextX][nextY][0] != 0 && count[nextX][nextY][1] != 0 ){
                         if(nextX==N-1 && nextY==M-1){
                             curCount = 1;
                             count[x][y][i] += curCount;
@@ -75,12 +73,9 @@ public class Main {
                     }
                     //아직 못 가본 곳이면 직접 가본다.
                     else{
-                        //다음도 꺾는거면 안간다
-                        if(!curve || !(dir==i && dir==-1)){
-                            curCount = dfs(nextX,nextY,dir!=i && dir!=-1,i);
-                            count[x][y][i] += curCount;
-                            cnt += curCount;
-                        }
+                        curCount = dfs(nextX,nextY,dir!=i && dir!=-1,i);
+                        count[x][y][i] += curCount;
+                        cnt += curCount;
                     }
                 }
 
@@ -91,14 +86,15 @@ public class Main {
     public static void printArr(){
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < M; j++) {
-                System.out.print(count[i][j][0]+" ");
+                System.out.print(count[i][j][0]+count[i][j][1]+" ");
             }
-            System.out.print(" ");
+            /*System.out.print(" ");
             for (int j = 0; j < M; j++) {
                 System.out.print(count[i][j][1]+" ");
-            }
+            }*/
             System.out.println();
         }
+        System.out.println();
     }
 
     public static boolean check(int x, int y){
