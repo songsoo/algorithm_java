@@ -1,4 +1,4 @@
-package Test;
+package BOJ.Sorting.binarySearch.S2.P18870;
 
 import java.io.BufferedReader;
 import java.io.IOException;
