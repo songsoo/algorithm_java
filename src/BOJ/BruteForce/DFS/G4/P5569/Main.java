@@ -28,7 +28,7 @@ public class Main {
         count[N-1][M-1][1] = 1;
         dfs(0,0,false,-1);
         printArr();
-        System.out.println((count[0][0][0]+count[0][0][1]));
+        System.out.println((count[0][0][0]+count[0][0][1])%100000);
     }
 
     public static int dfs(int x, int y, boolean curve, int dir){
@@ -46,6 +46,7 @@ public class Main {
                 int curCount = 0;
 
                 if(check(nextX, nextY)){
+
                     //이미 가본 곳이면 정답 베끼고
                     if(count[nextX][nextY][0] != 0 && count[nextX][nextY][1] != 0 ){
                         if(nextX==N-1 && nextY==M-1){
@@ -56,9 +57,10 @@ public class Main {
                         }
                         //이미 꺾었으면 같은 방향의 것만 가져오고
                         if(curve){
-                            curCount = count[nextX][nextY][i];
+                            curCount += count[nextX][nextY][i];
                             count[x][y][i] += curCount;
                             cnt += curCount;
+
                         }
                         //아직 안꺾었으면 두 방향 모두 가져온다.
                         else{
@@ -66,6 +68,7 @@ public class Main {
                             if(dir==i) {
                                 curCount += count[nextX][nextY][(i + 1) % 2];
                             }
+
                             curCount += count[nextX][nextY][i];
                             count[x][y][i] += curCount;
                             cnt += curCount;
@@ -77,6 +80,22 @@ public class Main {
                         count[x][y][i] += curCount;
                         cnt += curCount;
                     }
+
+                        if(dir==0 && nextX+2<N && nextY+2!=M){
+                            curCount += count[nextX+2][nextY][(i + 1) % 2];
+                            System.out.println("yup1 "+ count[nextX+2][nextY][(i + 1) % 2]);
+                            count[x][y][i] += count[nextX+2][nextY][(i + 1) % 2];
+                            cnt+=count[nextX+2][nextY][(i + 1) % 2];
+                        }else if(dir==1 && nextY+2<M&& nextX+2!=N){
+                            System.out.println("yup2 " +  count[nextX][nextY+2][(i + 1) % 2]);
+                            curCount += count[nextX][nextY+2][(i + 1) % 2];
+                            count[x][y][i] += count[nextX][nextY+2][(i + 1) % 2];
+                            cnt+=count[nextX][nextY+2][(i + 1) % 2];
+                        }else{
+                            System.out.println("yup3 ");
+                        }
+
+
                 }
 
             }
