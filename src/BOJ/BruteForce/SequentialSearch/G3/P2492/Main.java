@@ -15,8 +15,8 @@ public class Main {
         BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(bf.readLine());
 
-        M = Integer.parseInt(st.nextToken());
         N = Integer.parseInt(st.nextToken());
+        M = Integer.parseInt(st.nextToken());
         T = Integer.parseInt(st.nextToken());
         K = Integer.parseInt(st.nextToken());
 
@@ -24,37 +24,43 @@ public class Main {
 
         for (int i = 0; i < T; i++) {
             st = new StringTokenizer(bf.readLine());
-            int y = Integer.parseInt(st.nextToken());
             int x = Integer.parseInt(st.nextToken());
+            int y = Integer.parseInt(st.nextToken());
             dots.add(new dot(x,y));
         }
 
         int max = 0;
-        int x= N;
-        int y = 0;
+        int x= 0;
+        int y = M;
 
         for (int i = 0; i < dots.size() ; i++) {
            dot a = dots.get(i);
-            for (int j = i+1; j < dots.size(); j++) {
+            for (int j = 0; j < dots.size(); j++) {
                 dot b = dots.get(j);
                 if(a.compareTo(b)==0){
                     continue;
                 }
-                else if(a.compareTo(b)>0){
-                    dot tmp = b;
-                    b = a;
-                    a = tmp;
+                if(a.compareTo(b)>0){
+                    continue;
                 }
                 dot cur = new dot(b.x,a.y);
+                if(b.x+K<a.x || b.y+K<a.y){
+                    continue;
+                }
+                if(cur.x+K > N){
+                    cur.x = N-K;
+                }if(cur.y-K < 0){
+                    cur.y=K;
+                }
                 int getDot = cur.getDots();
                 if(getDot>max){
                     max = getDot;
-                    x = cur.x+K;
+                    x = cur.x;
                     y = cur.y;
                 }
             }
         }
-        System.out.println(y +" "+x);
+        System.out.println(x +" "+y);
         System.out.println(max);
 
     }
@@ -70,11 +76,14 @@ public class Main {
         @Override
         public int compareTo(dot o) {
             // 하나가 일방적으로 크면 문제가 있다.
-            if((this.x>o.x && this.y>o.y)||(o.x>this.x && o.y>this.y)){
+            if((this.x>o.x && this.y<o.y)||(o.x>this.x && o.y<this.y)){
                 return 0;
             }
+            if(this.x==o.x && this.y==o.y){
+                return -1;
+            }
             if(this.x==o.x){
-                return this.y - o.y;
+                return o.y - this.y;
             }else{
                 return o.x - this.x;
             }
@@ -83,11 +92,20 @@ public class Main {
         public int getDots(){
             int count = 0;
             for(dot cur : dots){
-                if(cur.x>=this.x && cur.x<=this.x+K && cur.y>=this.y && cur.y<=this.y+K){
+                if(cur.x>=this.x && cur.x<=this.x+K && cur.y>=this.y-K && cur.y<=this.y){
                     count++;
                 }
             }
             return count;
+        }
+        public void change(dot o){
+            int tmp = o.x;
+            o.x = this.x;
+            this.x = tmp;
+
+            tmp = o.y;
+            o.y = this.y;
+            this.y = tmp;
         }
     }
 }
