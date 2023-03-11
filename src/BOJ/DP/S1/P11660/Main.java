@@ -1,4 +1,4 @@
-package BOJ.DP.P11660;
+package BOJ.DP.S1.P11660;
 
 import java.io.*;
 import java.util.StringTokenizer;

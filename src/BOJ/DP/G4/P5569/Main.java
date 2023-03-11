@@ -1,4 +1,4 @@
-package BOJ.BruteForce.DFS.G4.P5569;
+package BOJ.DP.G4.P5569;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;

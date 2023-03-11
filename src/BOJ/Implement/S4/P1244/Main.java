@@ -3,6 +3,8 @@ package BOJ.Implement.S4.P1244;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -30,6 +32,8 @@ public class Main {
                 girl(switchNum);
             }
         }
+        ArrayList<Integer> a = new ArrayList<>();
+        
         for (int i = 1; i < N+1; i++) {
             System.out.print(switchCond[i]?'1'+" ":'0'+" ");
             if(i%20==0){
