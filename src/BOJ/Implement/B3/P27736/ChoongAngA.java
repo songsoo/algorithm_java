@@ -1,4 +1,4 @@
-package Test;
+package BOJ.Implement.B3.P27736;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

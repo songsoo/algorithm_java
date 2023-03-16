@@ -1,44 +1,44 @@
 package Test;
 
-
 import java.io.BufferedReader;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class Test {
 
-    static int[] parent;
-    static int[][] graph;
-
-    public static void main(String[] args) {
-        // vertex와 간선 개수 구하기
-        Arrays.sort(graph, (o1, o2) -> o1[2] - o2[2]);
-        // parent 자기 자신으로 초기화
-        kruskal();
-    }
-
-    public static void union(int x, int y) {
-        x = find(x);
-        y = find(y);
-        if(x < y) parent[y] = x;
-        else parent[x] = y;
-    }
-
-    public static int find(int x) {
-        if(parent[x] == x) return x;
-        else return parent[x] = find(parent[x]);
-    }
-
-    public static int kruskal(){
-        int cost = 0;
-        for(int i = 0 ; i < graph.length ; i++){
-            if(find(graph[i][0])!=find(graph[i][1])){
-                cost += graph[i][2];
-                union(graph[i][0], graph[i][1]);
+    public static void main(String[] args) throws Exception{
+        // TODO Auto-generated method stub
+        System.setIn(new FileInputStream("C:\\Users\\SSAFY\\IdeaProjects\\algorithm_java\\src\\Test\\Input.txt"));
+        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+        ArrayList<node> nodes = new ArrayList();
+        while(true) {
+            String str = bf.readLine();
+            if(str.equals("-1")) {
+                break;
             }
+            nodes.add(new node(str));
         }
-        return cost;
+
+        Collections.sort(nodes);
+
+        for(node a : nodes) {
+            System.out.println(a.url);
+        }
+    }
+
+}
+class node implements Comparable<node>{
+    String url;
+    int num;
+    node(String url){
+        this.url = url;
+        this.num = (int)(Math.random()*10000);
+    }
+    @Override
+    public int compareTo(node o) {
+        // TODO Auto-generated method stub
+        return this.num - o.num;
     }
 }
