@@ -9,9 +9,9 @@ public class P13905 {
     static int N,M,S,E, min;
     static ArrayList<ArrayList<edge>> root;
     static boolean visited[];
-    public static int Go() throws Exception{
+    public static void main(String[] args) throws Exception{
+        System.setIn(new FileInputStream("C:\\Users\\SSAFY\\IdeaProjects\\algorithm_java\\src\\Test\\Input.txt"));
 
-        System.setIn(new FileInputStream("D:\\IntelliJ\\algorithm_java\\src\\Test\\Input.txt"));
         BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(bf.readLine());
 
@@ -43,11 +43,11 @@ public class P13905 {
 
         PriorityQueue<edge> queue = new PriorityQueue<edge>();
         queue.add(new edge(S,Integer.MAX_VALUE));
+        visited[S] = true;
         while(!queue.isEmpty()){
             edge cur = queue.poll();
             visited[cur.to] = true;
             min = Math.min(min, cur.value);
-
             if(cur.to == E){
                 break;
             }
@@ -57,10 +57,10 @@ public class P13905 {
                 }
             }
         }
-        if(!visited[E] || min==Integer.MAX_VALUE){
+        if(!visited[E]){
             min = 0;
         }
-        return (min);
+        System.out.println(min);
 
     }
 }
