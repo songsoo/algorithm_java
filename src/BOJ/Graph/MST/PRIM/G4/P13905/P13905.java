@@ -1,4 +1,4 @@
-package Test;
+package BOJ.Graph.MST.PRIM.G4.P13905;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
