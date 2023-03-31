@@ -1,4 +1,4 @@
-package Test;
+package BOJ.DP.G3.P1600;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
