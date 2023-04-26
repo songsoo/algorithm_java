@@ -1,4 +1,4 @@
-package Test.Later;
+package Test;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
