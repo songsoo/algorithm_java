@@ -1,4 +1,4 @@
-package BOJ.NumberTheory;
+package BOJ.NumberTheory.DivideConquerPower;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
