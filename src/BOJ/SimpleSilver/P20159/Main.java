@@ -1,4 +1,4 @@
-package Test;
+package BOJ.SimpleSilver.P20159;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
