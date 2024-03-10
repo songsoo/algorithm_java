@@ -1,4 +1,4 @@
-package Test;
+package BOJ.TwoPointer.P16472;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
