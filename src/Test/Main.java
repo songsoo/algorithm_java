@@ -12,7 +12,7 @@ public class Main {
     static long max;
     static boolean[] arr2;
     public static void main(String[] args) throws Exception{
-        System.setIn(new FileInputStream("C:\\Users\\송수현\\IdeaProjects\\algorithm_java\\src\\Test\\input.txt"));
+        System.setIn(new FileInputStream("D:\\IntelliJ_Repository\\src\\Test\\input.txt"));
         Scanner sc = new Scanner(System.in);
         N = sc.nextInt();
         sc.nextLine();
@@ -59,6 +59,12 @@ public class Main {
             // 여기서 다 꺼내서 계산
             max = Math.max(sum, max);
             System.out.println(sum);
+            return;
+        }
+        if(index==N-3){
+            arr2[index+1] = true;
+            dfs(index+2, 0);
+            arr2[index+1] = false;
             return;
         }
         // 저번에 괄호 넣었음
