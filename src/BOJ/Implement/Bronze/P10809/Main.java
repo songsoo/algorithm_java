@@ -2,21 +2,25 @@ package BOJ.Implement.Bronze.P10809;
 
 import java.util.Arrays;
 import java.util.Scanner;
+import java.util.StringTokenizer;
 
 public class Main {
     public static void main(String[] args) throws Exception{
+
         Scanner sc = new Scanner(System.in);
-        char[] str = sc.nextLine().toCharArray();
-        int[] alpha = new int[26];
-        Arrays.fill(alpha,-1);
-        for (int i = 0; i < str.length; i++) {
-            int cur = str[i]-'a';
-            if(alpha[cur]==-1){
-                alpha[cur] = i;
+        StringTokenizer st=  new StringTokenizer(sc.nextLine());
+        int N = Integer.parseInt(st.nextToken());
+        int X = Integer.parseInt(st.nextToken());
+
+        StringBuilder sb = new StringBuilder();
+        st = new StringTokenizer(sc.nextLine());
+        for (int i = 0; i < N; i++) {
+            int cur = Integer.parseInt(st.nextToken());
+            if(cur < X){
+                sb.append(cur+" ");
             }
+
         }
-        for (int i = 0; i < 26; i++) {
-            System.out.print(alpha[i]+" ");
-        }
+        System.out.println(sb.toString());
     }
 }
