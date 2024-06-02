@@ -15,11 +15,19 @@ public class Main2 {
         for (int i = 0; i < n; i++) {
             StringTokenizer st = new StringTokenizer(bf.readLine());
             String op = st.nextToken();
-            if(op.equals("push")){
-                queue.add(Integer.parseInt(st.nextToken()));
-            }else if(op.equals("pop")){
+            if(op.equals("push_front")){
+                queue.push(Integer.parseInt(st.nextToken()));
+            }else if(op.equals("push_back")){
+                queue.addLast(Integer.parseInt(st.nextToken()));
+            } else if(op.equals("pop_front")){
                 if(queue.size()>0){
                     sb.append(queue.pop()).append("\n");
+                }else{
+                    sb.append(-1).append("\n");
+                }
+            }else if(op.equals("pop_back")){
+                if(queue.size()>0){
+                    sb.append(queue.removeLast()).append("\n");
                 }else{
                     sb.append(-1).append("\n");
                 }
