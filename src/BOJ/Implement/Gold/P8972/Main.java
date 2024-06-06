@@ -1,4 +1,4 @@
-package Test;
+package BOJ.Implement.Gold.P8972;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -14,6 +14,7 @@ public class Main {
     static int[] moveX= {0,1,1,1,0,0,0,-1,-1,-1}, moveY={0,-1,0,1,-1,0,1,-1,0,1};
     static ArrayList<Node> crazy;
     static Node player;
+    static char playerCharacter = (char)0, dotCharaceter = (char)1,deleteCharacter=(char)2, crazyCharacter = (char)3;
     public static void main(String[] args) throws Exception{
 
         System.setIn(new FileInputStream("D:\\IntelliJ_Repository\\src\\Test\\input.txt"));
@@ -26,34 +27,37 @@ public class Main {
 
         map = new char[R][C];
         crazy = new ArrayList<>();
-        char idx='0';
+        char idx = crazyCharacter;
         for (int i = 0; i < R; i++) {
             map[i] = bf.readLine().toCharArray();
             for (int j = 0; j < C; j++) {
                 if(map[i][j]=='I'){
                     player = new Node(i, j);
+                    map[i][j] = playerCharacter;
                 }else if(map[i][j]=='R'){
                     crazy.add(new Node(i, j));
                     map[i][j] = idx++;
+                }else{
+                    map[i][j] = dotCharaceter;
                 }
             }
         }
 
         char[] order = bf.readLine().toCharArray();
         boolean flag = true;
-        int i = 0;
+        int i;
         loop:
         for (i = 0; i < order.length;) {
             char[][] nextMap = new char[R][C];
             for (int j = 0; j < R; j++) {
-                Arrays.fill(nextMap[j],'.');
+                Arrays.fill(nextMap[j],dotCharaceter);
             }
             // 종수 움직임
             if(!move(order[i++]-'0')){
                 flag = false;
                 break;
             }
-            nextMap[player.x][player.y] = 'I';
+            nextMap[player.x][player.y] = playerCharacter;
             // 미친 아두이노 종수와 가까운 방향으로 이동
             ArrayList<Integer> deleteList = new ArrayList<>();
             ArrayList<int[]> deleteLoc = new ArrayList<>();
@@ -67,17 +71,17 @@ public class Main {
                 if(player.x == nextX && player.y==nextY){
                     flag = false;
                     break loop;
-                }else if(nextMap[nextX][nextY]=='D'){
+                }else if(nextMap[nextX][nextY]==deleteCharacter){
                     deleteList.add(j);
                 }
                 // 아두이노끼리 도달하면 삭제 리스트에 추가
-                else if(nextMap[nextX][nextY]!='.'){
+                else if(nextMap[nextX][nextY]!=dotCharaceter){
                     deleteList.add(j);
-                    deleteList.add(nextMap[nextX][nextY]-'0');
+                    deleteList.add(nextMap[nextX][nextY]-crazyCharacter);
                     deleteLoc.add(new int[]{nextX, nextY});
-                    nextMap[nextX][nextY] = 'D';
+                    nextMap[nextX][nextY] = deleteCharacter;
                 }else{
-                    nextMap[nextX][nextY] = (char)('0'+j);
+                    nextMap[nextX][nextY] = (char)(crazyCharacter+j);
                     cur.x = nextX;
                     cur.y = nextY;
                 }
@@ -88,7 +92,7 @@ public class Main {
                 crazy.remove(cur);
             }
             for(int[] cur : deleteLoc){
-                nextMap[cur[0]][cur[1]] = '.';
+                nextMap[cur[0]][cur[1]] = dotCharaceter;
             }
             for (int j = 0; j < R; j++) {
                 map[j] = Arrays.copyOf(nextMap[j],C);
@@ -98,7 +102,7 @@ public class Main {
         if(flag){
             for (int j = 0; j < R; j++) {
                 for (int k = 0; k < C; k++) {
-                    System.out.print((map[j][k]=='I'||map[j][k]=='.')?map[j][k]:'R');
+                    System.out.print(map[j][k]==playerCharacter?'I':map[j][k]==dotCharaceter?'.':'R');
                 }
                 System.out.println();
             }
@@ -119,7 +123,7 @@ public class Main {
     public static boolean move(int i){
         int nextX = player.x + moveX[i];
         int nextY = player.y + moveY[i];
-        if(map[nextX][nextY]!='.' && i!=5){
+        if(map[nextX][nextY]!=dotCharaceter && i!=5){
             return false;
         }else{
             player.x = nextX;
