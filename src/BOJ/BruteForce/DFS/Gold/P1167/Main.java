@@ -1,4 +1,4 @@
-package BOJ.BruteForce.DFS.Gold;
+package BOJ.BruteForce.DFS.Gold.P1167;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
