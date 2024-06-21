@@ -1,4 +1,4 @@
-package Test;
+package BOJ.Implement.Silver.P7568;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
