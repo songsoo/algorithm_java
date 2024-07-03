@@ -9,7 +9,7 @@ class Solution
     public static void main(String args[]) throws Exception
     {
 
-        //System.setIn(new FileInputStream("res/input.txt"));
+        //System.setIn(new FileInputStream(""));
         Scanner sc = new Scanner(System.in);
         int T;
         T=sc.nextInt();
